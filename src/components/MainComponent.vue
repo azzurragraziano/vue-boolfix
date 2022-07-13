@@ -1,12 +1,10 @@
 <template>
-  <section>
-    <h2>Film</h2>
-    <div class="cards-container">
-        <ul class="movie-card">
+    <section class="movies-container">
+        <!-- cards container -->
+        <ul class="movie-cards">
             <CardsComponent v-for="card in movieCards" :key="card.id" :item="card"/>
         </ul>
-    </div>
-  </section>
+    </section>
 </template>
 
 <script>
@@ -25,6 +23,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+    .movies-container {
+        width: 80%;
+        margin: 0 auto;
+        padding-top: 3rem;
 
+        .movie-cards {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
 </style>

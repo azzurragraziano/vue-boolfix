@@ -46,8 +46,8 @@ export default {
     // getMovies riceve in input i parametri ed effettua la chiamata axios
     getMovies(apiParams) {
       axios.get(this.apiUrl + 'movie', apiParams).then((response) => {
-        this.movie= response.data.results;
-        this.allResults = this.movies;
+        this.movies = response.data.results;
+        this.allResults = [...this.movies];
         this.searchStarted = true;
       })
     },
@@ -74,5 +74,14 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  main {
+    background-color: #292828;
+    height: calc(100vh - 4rem);
+  }
+
+  li {
+    list-style-type: none;
   }
 </style>
