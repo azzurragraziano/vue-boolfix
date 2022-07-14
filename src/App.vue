@@ -2,14 +2,11 @@
   <div id="app">
     
     <!-- header -->
-    <header>
-      <HeaderComponent @userInput="searchElement"/>
-    </header>
+    <HeaderComponent @userInput="searchElement"/>
+
 
     <!-- main -->
-    <main>
-      <MainComponent :movieCards="movies" :searching="searchStarted"/>
-    </main>
+    <MainComponent :movieCards="movies" :seriesCards="series" :searching="searchStarted"/>
 
   </div>
 </template>
@@ -38,21 +35,26 @@ export default {
   },
   computed: {
     computedResults() {
-      return this.movies;
+      return [...this.movies];
     }
   },
   methods: {
-
+    getSeries(apiParams){
+      axios.get(this.apiUrl + 'tv', apiParams).then((response) => {
+        this.series = response.data.results;
+        this.allResults = [...this.movies, ...this.series];
+        this.searchStarted = true;
+      })
+    },
     // getMovies riceve in input i parametri ed effettua la chiamata axios
     getMovies(apiParams) {
       axios.get(this.apiUrl + 'movie', apiParams).then((response) => {
         this.movies = response.data.results;
-        this.allResults = [...this.movies];
+        this.allResults = [...this.movies, ...this.series];
         this.searchStarted = true;
       })
     },
     searchElement(searchText) {
-
       //oggetto di parametri: apiKey, parola digitata dall'utente e lingua
       const paramsObj = {
         params: {
@@ -64,6 +66,8 @@ export default {
 
       // passiamo il parametro a getMovies
       this.getMovies(paramsObj);
+      this.getSeries(paramsObj);
+
     }
   }
 }
@@ -74,11 +78,6 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-
-  main {
-    background-color: #292828;
-    height: calc(100vh - 4rem);
   }
 
   li {

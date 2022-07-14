@@ -1,14 +1,16 @@
 <template>
-  <div class="header-content">
+  <header>
+    <!-- logo -->
     <div class="logo">
         boolfix
     </div>
 
+    <!-- search bar -->
     <div class="search">
         <input type="text" v-model="searchText" @keyup.enter="$emit('userInput', searchText)">
         <button @click="$emit('userInput', searchText)">Search</button>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
@@ -23,17 +25,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header-content {
-    background-color: black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
+    header {
+        background-color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        height: 100px;
 
-    .logo {
-        color: red;
-        font-size: 2rem;
-        text-transform: uppercase;
+        .logo {
+            color: red;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
     }
-}
 </style>
